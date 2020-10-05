@@ -1,0 +1,33 @@
+/* Colors */
+
+$white: #FFFFFF;
+$dark: #303030;
+$grey:#f8f9fa;
+
+$color-danger: #f2555b;
+$color-sky: #456f97;
+$color-success: #50b47e;
+
+$primary: #251f1f;
+$primary: #c8a97e;
+$primary: #263067;
+$secondary: #040E27;
+$primary: #d297f2;
+
+$primary-dark: #F25572;
+
+@mixin gradient-primary {
+    background: -moz-linear-gradient(bottom,rgb(242, 84, 90, 0.8) 0%,rgb(242, 84, 90, 0.2) 100%);
+    background: -webkit-gradient(linear,left bottom,left bottom,color-stop(0%,rgba(0,0,0,0)),color-stop(100%,rgba(0,0,0,0.5)));
+    background: -webkit-linear-gradient(left,rgb(242, 84, 90, 1) 0%,rgb(242, 84, 90, 0.2) 100%);
+    background: -o-linear-gradient(bottom,rgb(242, 84, 90, 0.8) 0%,rgb(242, 84, 90, 0.2) 100%);
+    background: -ms-linear-gradient(bottom,rgb(242, 84, 90, 0.8) 0%,rgb(242, 84, 90, 0.2) 100%);
+    /* background: linear-gradient(to top,rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%); */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000',endColorstr='#a6000000',GradientType=0 );
+  }
+
+.text{
+    &-white{color: $white !important;}
+    &-dark{color: $dark !important;}
+    &-primary{color: $primary !important;}
+}

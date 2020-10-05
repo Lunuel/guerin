@@ -1,0 +1,348 @@
+/** Config SCSS **/
+
+@use "sass:map";
+@import "media-query.scss";
+@import "__colors.scss";
+@import "__buttons.scss";
+
+// Fonts
+$font-stack-title: 'Concert One';
+$font-stack-title: 'Poppins',sans-serif;
+$font-stack-text: 'Poppins',sans-serif;
+$font-text-special: 'Great Vibes', cursive;
+
+
+
+/* {box-sizing: border-box;} */
+
+html,body{
+	color: inherit;
+  font-family: $font-stack-text;
+  a{color: inherit;;outline: none;text-decoration: none;
+    -webkit-transition: all 0.4s cubic-bezier(0,0,.25,1);
+    transition: all 0.4s cubic-bezier(0,0,.25,1);
+  }
+
+
+a:active,a:hover,a:focus{outline: none;text-decoration: none;color: inherit;}
+ul {margin:0;padding: 0;}
+li {margin: 0;list-style: none;}
+button{border:none;outline: none;background: none;}
+button:active,button:hover,button:focus {outline: none;color: inherit;}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+      margin: 0.5rem 0;
+      font-family: $font-stack-title;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 1.2;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+}
+p,a {margin: 0.5rem 0;}
+
+.subheading {font-family: $font-text-special;}
+
+hr {
+  background: $dark;
+  &.primary{background: $primary;}
+}
+
+}
+
+@mixin color-primary{color: $primary;}
+@mixin color-secondary{color: $secondary;}
+@mixin all-primary{color: $primary;hr {background-color: $primary;}svg path {fill: $primary;}}
+@mixin all-secondary{color: $secondary;hr {background-color: $secondary;}svg path {fill: $secondary;}}
+
+@mixin layer-img{
+  position: absolute;content: "";
+  width: 100%;height: 100%;
+  z-index: 0;
+  bottom: 0;left: 0;
+  opacity: 0.5;
+}
+
+.border{
+  &-primary{border-color:$primary !important;}
+  &-secondary{border-color:$secondary !important;}
+  &-dark{border-color:$dark !important;}
+  &-white{border-color:$white !important;}
+}
+
+.header{
+  &-primary{.item-header{@include all-primary;}}
+  &-secondary{.item-header{@include all-secondary;}}
+}
+
+
+
+
+
+.item-article,.item-row,.item-card{
+
+  .item-header, .item-footer, .item-icon{&.primary{@include all-primary;}}
+
+  .btn-bg {
+    color: $white;
+    &.primary{background: $primary;}
+    &.secondary{background: $secondary;}
+  }
+
+  .underline{border-color: $primary;}
+}
+
+
+.primary{color: $primary;}
+.secondary{color: $secondary;}
+.grey{color: $grey;}
+.white{color: $white;}
+.dark{color: $dark;}
+
+.bg-primary{background-color: $primary !important;}
+.bg-secondary{background-color: $secondary !important;}
+.bg-grey{background-color: $grey;}
+.bg-white{background-color: $white;}
+.bg-dark{background-color: $dark;}
+
+
+/* ON LAYER */
+.layer {
+  &-primary{background: $primary;}
+  &-secondary{background: $secondary;}
+  &-grey{background: $grey;}
+  &-white{background: $white;}
+  &-dark{background: $dark;}
+
+  &-img {
+    &-dark{&::after{@include layer-img;background: $dark;opacity: 0.7;}}
+    &-primary{&::after{@include layer-img;background: $primary;}}
+    &-secondary{&::after{@include layer-img;background: $secondary;}} 
+    &-gradient-primary{&::after{@include layer-img;@include gradient-primary;}} 
+  }
+
+  $textonlayer: $white; /* CHANGE IT*/
+  color: $textonlayer;
+
+  hr {background-color: $textonlayer;}
+
+  .underline{border-color: $textonlayer;}
+
+  .item-icon{
+    &.borderline {border: 2px solid $textonlayer;}
+  }  
+
+  .item-button {
+    &.btn-bg {
+      background-color: white;
+      color: $primary;
+      &:hover {color: $primary;}
+      &.primary {
+        background-color: $primary;
+        color: white !important;
+      }
+    }
+  }
+
+  
+}
+
+
+
+/* Item */
+.item-article{
+  padding: 2rem;
+
+  @include md{
+    padding: 1rem;
+  }
+}
+
+.item-card{
+  padding: 1.5rem;
+
+}
+.item-row {
+  padding: 1rem;
+
+}
+
+
+
+/* ###### Page Width ####### */
+
+.page-width {
+  margin:auto;
+  padding: 0 3rem;
+  &--small {max-width: 850px;}
+  &--medium { max-width: 1150px;}
+  &--large {max-width: 1300px;}
+}
+
+
+@function create-list-size($value,$sm: 0.85,$md: 0.9,$lg: 0.95,$xl: 1){
+  $list : ("small": $value * $sm, "medium" : $value * $md,"large" : $value * $lg,"extra-large" : $value * $xl);
+  @return $list;
+}
+
+/* ### Text Size Media ### */
+
+/* Text Size */
+$percent-xl: 1;
+$percent-lg: 0.9;
+$percent-md: 0.9;
+$percent-sm: 0.9;
+
+
+/* Mega Title */
+$list-item-mega-title: create-list-size(5.4em,0.5,0.6,0.9,1);
+
+/* Mega Subtitle */
+$list-item-mega-subtitle: create-list-size(2em,0.85,0.9,0.95,1);
+
+/* Article Title */
+$list-item-title-h1: create-list-size(4.5em,0.8,0.9,0.95,1);
+$list-item-title-h2: create-list-size(3.5em,0.8,0.9,0.95,1);
+$list-item-title-h3: create-list-size(2.5em,0.8,0.9,0.95,1);
+$list-item-title-h4: create-list-size(2em,0.8,0.9,0.95,1);
+$list-item-title-h5: create-list-size(1.8em,0.8,0.9,0.95,1);
+$list-item-title-h6: create-list-size(1.6em,0.8,0.9,0.95,1);
+
+/* Article Subtext */
+$list-item-subtext: create-list-size(1.2em,0.8,0.9,0.95,1);
+
+/* Article Button */
+$list-item-button:create-list-size(1.1em,0.85,0.9,0.95,1);
+
+/* Article Icon */
+$list-item-icon-sm:create-list-size(2em,0.85,0.9,0.95,1);
+$list-item-icon-md:create-list-size(3em,0.85,0.9,0.95,1);
+$list-item-icon-lg:create-list-size(4em,0.85,0.9,0.95,1);
+
+
+
+$list-item-nav-link--main: create-list-size(3em,0.85,0.9,0.95,1);
+$list-item-nav-link--dropdown: create-list-size(1.4em,0.85,0.9,0.95,1);
+
+
+/* Slideshow */
+
+// Breakpoints
+$breakpoint-xl:1200px;
+$breakpoint-lg:992px;
+$breakpoint-md:768px;
+$breakpoint-sm:538px;
+
+@mixin in-responsive($font-sizes,$size){
+  $font-size : map.get($font-sizes,$size);
+  font-size : $font-size * $percent-xl;
+  @include xl{
+    font-size: $font-size * $percent-xl;
+  }
+  @include lg{
+    font-size: $font-size * $percent-lg;
+  }
+  @include md{
+    font-size: $font-size * $percent-md;
+  }
+  @include sm{
+    font-size: $font-size * $percent-sm;
+  }
+}
+
+ @mixin responsive($font-sizes,$class){
+    $sizes : ("small","medium","large","extra-large");
+    
+    @each $size in $sizes {
+      &--#{$size}{
+        #{$class}{
+            @include in-responsive($font-sizes,$size);
+        } 
+      }
+      &.xl-item--#{$size}{
+        @include xl{
+          #{$class}{
+            @include in-responsive($font-sizes,$size);
+          } 
+        }
+      }
+      &.lg-item--#{$size}{
+        @include lg{
+          #{$class}{
+            @include in-responsive($font-sizes,$size);
+          } 
+        }
+      }
+      &.md-item--#{$size}{
+        @include md{
+          #{$class}{
+            @include in-responsive($font-sizes,$size);
+          } 
+        }
+      }
+      &.sm-item--#{$size}{
+        @include sm{
+        #{$class}{
+          @include in-responsive($font-sizes,$size);
+        } 
+      }
+      }
+    }
+  }
+
+
+  
+
+
+.item {
+  
+  /* Navbar*/
+  @include responsive($list-item-nav-link--main,".item-link--main");
+  @include responsive($list-item-nav-link--dropdown,".item-link--dropdown");
+
+  /* Slideshow */
+  @include responsive($list-item-button,".slideshow-button");
+
+  /* Item */
+  @include responsive($list-item-mega-title,".mega-title");
+  @include responsive($list-item-mega-subtitle,".mega-subtitle");
+  @include responsive($list-item-title-h1,"h1.item-title");
+  @include responsive($list-item-title-h2,"h2.item-title");
+  @include responsive($list-item-title-h3,"h3.item-title");
+  @include responsive($list-item-title-h4,"h4.item-title");
+  @include responsive($list-item-title-h5,"h5.item-title");
+  @include responsive($list-item-title-h6,"h6.item-title");
+  @include responsive($list-item-subtext,".item-subtext");
+  @include responsive($list-item-button,".item-button");
+  @include responsive($list-item-subtext,".item-link");
+
+  @include responsive($list-item-icon-sm,".item-icon.sm-icon");
+  @include responsive($list-item-icon-md,".item-icon.md-icon");
+  @include responsive($list-item-icon-lg,".item-icon.lg-icon");
+
+}
+
+
+
+/* Min @Media */
+@media (min-width: $breakpoint-xl){
+  .xl-visible {display: none !important;}}
+
+@media (min-width: $breakpoint-lg){
+  .lg-visible {display: none !important;}}
+
+@media (min-width: $breakpoint-md){
+  .md-visible {display: none !important;}
+}
+
+@media(min-width: $breakpoint-sm){
+  .sm-visible {display: none !important;}}
+
+
+/* WRAP */
+@for $i from 1 through 10{
+  .wrap-top-#{$i} {
+    margin-top: $i * -4rem;
+  }
+}
+

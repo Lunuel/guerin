@@ -1,0 +1,424 @@
+
+@import "__colors.scss";
+
+.btn {
+  padding: 0.7em 1.1em;
+  width: fit-content;
+  text-decoration: none;
+  box-sizing: border-box;
+  border-radius: inherit;
+  transition: 0.2s;
+}
+
+
+.btn-underlined {
+    box-shadow: inset 0 -0.2em 0 $dark;
+    transition: 0.2s;
+    &:hover {
+      box-shadow: inset 0 -3em 0 $dark;
+      color: $white;
+      transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+    &.primary {
+      box-shadow: inset 0 -0.2em 0 $primary;
+      color: $primary;
+      &:hover {
+      color: $white;
+      box-shadow: inset 0 -3em 0 $primary;
+      transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+      }
+    }
+    &.white {
+      box-shadow: inset 0 -0.2em 0 $white;
+      color: $white;
+      &:hover {
+      color: $primary;
+      box-shadow: inset 0 -3em 0 $white;
+      transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+      }
+    }
+  }
+
+  .btn-bg {
+    &.rounded{border-radius: 10px !important;}
+  }
+
+  
+  .btn-brk {
+    position: relative;
+    background: none;
+    color: $primary;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 0.2em solid $primary;
+    padding: 0.5em 1em;
+    max-width: max-content;
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 10%;
+      background:$white;
+      height: 0.3em;
+      right: 20%;
+      top: -0.21em;
+      transform: skewX(-45deg);
+      -webkit-transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+      transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 10%;
+      background:$white;
+      height: 0.3em;
+      left: 20%;
+      bottom: -0.25em;
+      transform: skewX(45deg);
+      -webkit-transition: all 0.45 cubic-bezier(0.86, 0, 0.07, 1);
+      transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+    &:hover {
+      &::before {
+        right: 80%;
+      }
+      &::after {
+        left: 80%;
+      }
+    }
+  }
+  
+
+
+
+.blob-btn {
+  $numOfBlobs: 4;
+  width: max-content;
+  z-index: 1;
+  position: relative;
+  padding: 1rem 3rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  transition: color 0.5s;
+  cursor: pointer;
+  $this : &;
+
+  &.primary{
+    color: $primary;
+    &:before {border-color:$primary;}
+    &:hover {color: $white;}
+    &__blob {background:$primary;}
+  }
+  
+  &.white{
+    color: $white;
+    &:before {border-color:$white;}
+    &:hover {color: $dark;}
+    #{$this}__blob {background:$white;}
+  }
+  
+  &:before {
+    content: "";
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: 4px solid;
+  }
+  
+  &:hover {
+    color: $primary;
+    
+    &:after {
+      transition: all 0.3s;
+      left: 0;
+      top: 0;
+    }
+  }
+  
+  &__inner {
+    z-index: -1;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  // additional container created, because in FF blobs are breaking overflow:hidden of element with svg gooey filter
+  &__blobs {
+    position: relative;
+    display: block;
+    height: 100%;
+    filter: url('#goo');
+  }
+  
+  &__blob {
+    position: absolute;
+    top: 4px;
+    width: 100% / $numOfBlobs;
+    height: 100%;
+    background: $dark;
+    border-radius: 100%;
+    transform: translate3d(0,150%,0) scale(1.7);
+    transition: transform 0.45s;
+    
+    @supports(filter: url('#goo')) {
+      transform: translate3d(0,150%,0) scale(1.4);
+    }
+    
+    @for $i from 1 through $numOfBlobs {
+      &:nth-child(#{$i}) {
+        left: ($i - 1) * (120% / $numOfBlobs);
+        transition-delay: ($i - 1) * 0.08s;
+      }
+    }
+    
+    .blob-btn:hover & {
+      transform: translateZ(0) scale(2);
+      
+      @supports(filter: url('#goo')) {
+        transform: translateZ(0) scale(1.8);
+      }
+    }
+  }
+  
+}
+
+// Colors //
+$color: #5533ff;
+$color2: #38e2ee;
+$deeper: darken($color, 5%);
+$lighter: lighten($color2, 10%);
+
+// Shadows //
+@mixin box_shadow ($level){
+  @if $level == 0{
+    box-shadow: none}
+
+  @else if $level == 1{
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)}
+
+  @else if $level == 2 {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)}
+
+  @else if $level == 3{
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)}
+
+  @else if $level == 4{
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22)}
+
+  @else if $level == 5{
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22)}
+  }
+
+
+.button{
+  padding: 1rem 2rem;
+  background: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 1.7rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  position: relative;
+  will-change: transform;
+}
+  
+.button-mat{
+  color: $color;
+  border: 0px transparent;
+  border-radius: .3rem;
+  transition: .3s ease-in-out;
+  transition-delay: .35s;
+  overflow: hidden;
+  
+  &:before{
+    content: '';
+    display: block;
+    background: $deeper;
+    position: absolute;
+    width: 200%;
+    height: 500%;
+    border-radius: 100%;
+    transition: .36s cubic-bezier(0.4, 0.0, 1, 1)}
+        
+  &:hover .psuedo-text {
+    color: white
+  }
+
+  &:hover{
+    color: transparent
+  }
+}
+  
+// FIRST BUTTON
+
+.btn-1{
+  letter-spacing: .05rem;
+  transition: .5s all ease-in-out;
+  position: relative;
+  background: transparent;
+
+  &.primary{
+    color: $primary;
+    &:before{
+      border-color: $primary;
+    }
+  }
+  
+  &:before{
+    border-top: .3rem solid;
+    border-bottom: .3rem solid;
+    display: block;
+    position: absolute;
+    background: transparent;
+    content: '';
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    right: 100%;
+    transition: .48s all ease-in-out;
+  }
+  
+  &:hover{
+    letter-spacing: .4rem;
+  }
+    
+  &:hover:before{
+    left: 0%;
+    right: 0%;
+  }
+}
+  
+// Second Button
+
+.btn-2{
+  letter-spacing: .05rem;
+  position: relative;
+  background: white;
+  color: $deeper;
+  border-radius: .3rem;
+  position: relative;
+  transition: .2s all ease-in-out;
+
+  &.primary{
+    background: $primary;
+    color: $white;
+    &:before{
+      border-color: $primary;
+    }
+  }
+    
+  &:before{
+    display: block;
+    position: absolute;
+    background: transparent;
+    border: none;
+    border-radius: .3rem;
+    transform: translateY(5px) scale(.9);
+    content: '';
+    height: 5px;
+    z-index: -1;
+    bottom: -1%;
+    left: 0;
+    right: 0;
+    transition: .2s all ease-inout;
+    @include box_shadow(4);
+      
+  &:hover:before{
+    transform: translateY(8px) scale(.8);
+    opacity: .8;
+    @include box_shadow(5);}
+    
+  &:hover{
+    transform: translateY(-5px);}
+  }
+  
+  
+  
+// Third Button
+
+.btn-3{
+  letter-spacing: .05rem;
+  position: relative;
+  background: white;
+  color: $deeper;
+  overflow: hidden;
+  transition: .3s ease-in-out;
+  border-radius: .3rem;
+  z-index: 1;
+  @include box_shadow(5);
+    
+  &:hover{
+    @include box_shadow(3);
+    transform: scale(.95);}
+  }
+
+    
+// Fourth Button
+.btn-4{
+  background: rgba(black, .1);
+  box-shadow: 0px 0px 0px 5px rgba(white ,0.95);
+  border: 1px solid white;
+  transition: .3s all ease-in-out;
+  
+  &:hover{
+    background: rgba(black, 0.2);
+    box-shadow: 0px 0px 10px 5px rgba(255,255,255,0.85);}
+  }
+    
+    
+// Fifth Button
+.btn--5{
+  @include box_shadow(2);
+
+  &:before{
+    transform: translate(-120%,-50%) translateZ(0);}
+
+  &:hover:before{
+    transform: translate(-45%,-34%) translateZ(0);}}
+
+  
+// Sixth Button
+.btn--6{
+  @include box_shadow(2);
+
+  &:before{
+    transform: translate(40%,-50%) translateZ(0);}
+
+  &:hover:before{
+    transform: translate(-45%,-34%) translateZ(0);}}
+
+  
+// Seventh Button
+.btn--7{
+  @include box_shadow(2);
+
+  &:before{
+    transform: translate(-110%,-110%) translateZ(0);}
+
+  &:hover:before{
+    transform: translate(-45%,-34%) translateZ(0);}}
+
+  
+// Eighth Button
+.btn--8{
+  @include box_shadow(2);
+  
+  &:before{
+    transform: translate(30%,10%) translateZ(0);}
+    
+  &:hover:before{
+    transform: translate(-45%,-34%) translateZ(0);}
+  }
+}
